@@ -47,25 +47,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DolbyFrameworksResCommon
 
-# Spatial Audio
-PRODUCT_COPY_FILES += \
-    $(DOLBY_PATH)/configs/android.hardware.sensor.dynamic.head_tracker.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.dynamic.head_tracker.xml \
-
-# Spatial Audio: optimize spatializer effect
-PRODUCT_PROPERTY_OVERRIDES += \
-       audio.spatializer.effect.util_clamp_min=300
-
-# Spatial Audio: declare use of spatial audio
-PRODUCT_PROPERTY_OVERRIDES += \
-       ro.audio.spatializer_enabled=true \
-       ro.audio.headtracking_enabled=true \
-       ro.audio.spatializer_transaural_enabled_default=false \
-       persist.vendor.audio.spatializer.speaker_enabled=true \
-
-# Spatial Audio Proprietary blobs
-PRODUCT_PACKAGES += \
-    libspatialaudio
-
 # Media (C2)
 PRODUCT_PACKAGES += \
     android.hardware.media.c2@1.0.vendor \
@@ -87,11 +68,6 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.dolby.dax.version=DAX3_3.7.0.8_r1 \
     vendor.audio.dolby.ds2.hardbypass=false \
     vendor.audio.dolby.ds2.enabled=false
-
-# Remove Packages for Dolby Support
-PRODUCT_PACKAGES += \
-    RemovePackagesDolby
-
 
 # DolbyManager
 PRODUCT_PACKAGES += \
