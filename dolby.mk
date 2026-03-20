@@ -30,7 +30,8 @@ BOARD_VENDOR_SEPOLICY_DIRS += $(DOLBY_PATH)/sepolicy/vendor
 # Configs
 PRODUCT_COPY_FILES += \
     $(DOLBY_PATH)/configs/dax-default.xml:$(TARGET_COPY_OUT_VENDOR)/etc/dolby/dax-default.xml \
-    $(DOLBY_PATH)/configs/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml
+    $(DOLBY_PATH)/configs/media_codecs_dolby_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_dolby_audio.xml \
+    $(DOLBY_PATH)/configs/android.hardware.sensor.dynamic.head_tracker.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.dynamic.head_tracker.xml
 
 # Dolby VNDK libs
 PRODUCT_PACKAGES += \
@@ -43,9 +44,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     init.dolby.rc
 
-# Overlays    
-PRODUCT_PACKAGES += \
-    DolbyFrameworksResCommon
+# Spatial Audio
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.audio.spatializer_enabled=true \
+    ro.audio.headtracking_enabled=true \
+    ro.audio.spatializer_transaural_enabled_default=false \
+    audio.spatializer.effect.util_clamp_min=300 \
+    persist.vendor.audio.spatializer.speaker_enabled=true
 
 # Media (C2)
 PRODUCT_PACKAGES += \
@@ -82,6 +87,7 @@ PRODUCT_COPY_FILES += \
     $(DOLBY_PATH)/proprietary/vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.dolby.media.c2@1.0-service.rc \
 
 PRODUCT_PACKAGES += \
+    aoc_audio_stereo_spatializer \
     libdapparamstorage \
     libdlbpreg \
     vendor.dolby.hardware.dms@2.0 \
@@ -96,6 +102,7 @@ PRODUCT_PACKAGES += \
     libdeccfg \
     vendor.dolby.media.c2@1.0-service \
     libdlbvol \
+    libspatialaudio \
     libswdap \
     libswgamedap \
-    libswvqe \
+    libswvqe
